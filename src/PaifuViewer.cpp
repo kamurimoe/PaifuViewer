@@ -4,10 +4,10 @@
 #include "MajongGame.h"
 
 // ui默认配置
-int BASE_WIDTH = 800;
-int BASE_HEIGHT = 600;
-int BASE_FONT_SIZE = 15;
-std::string BASE_TITLE = "牌谱复现工具";
+float BASE_WIDTH = 800;
+float BASE_HEIGHT = 600;
+int BASE_FONT_SIZE = 10;
+std::string BASE_TITLE = "牌谱复现";
 std::string fontPath = RES_DIR"/fonts/simhei.ttf";
 std::string charsetPath = RES_DIR"/fonts/charset.txt";
 
@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
         {
             std::string fileName = reader.readFile();
             // 动态标题
-            SetWindowTitle(TextFormat("%s | %s", "牌谱复现工具", GetFileName(fileName.data())));
+            SetWindowTitle(TextFormat("%s | %s", BASE_TITLE.data(), GetFileName(fileName.data())));
             game.resetPaifu(fileName);
         }
 
