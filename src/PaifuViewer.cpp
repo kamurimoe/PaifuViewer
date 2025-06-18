@@ -6,7 +6,7 @@
 // ui默认配置
 float BASE_WIDTH = 800;
 float BASE_HEIGHT = 600;
-int BASE_FONT_SIZE = 10;
+int BASE_FONT_SIZE = 13;
 std::string BASE_TITLE = "牌谱复现";
 std::string fontPath = RES_DIR"/fonts/simhei.ttf";
 std::string charsetPath = RES_DIR"/fonts/charset.txt";

@@ -49,19 +49,19 @@ inline GuiLayoutPlayState InitGuiLayoutPlay()
         Rectangle{0, 0, 0, 0},
         Vector2{0, 0},
         Vector2{0, 0},
-        Rectangle{248, 0, 1672, 984},
-        Rectangle{256, 32, 30 + 624, 176},
-        Rectangle{256, 216, 30 + 624, 432},
-        Rectangle{256, 656, 30 + 624, 320},
-        Rectangle{75 + 1192, 352, 296, 296},
-        Rectangle{75 + 1184, 664, 312, 208},
-        Rectangle{75 + 1504, 344, 208, 312},
-        Rectangle{75 + 1184, 128, 312, 208},
-        Rectangle{75 + 968, 344, 208, 312},
-        Rectangle{75 + 968, 896, 747, 52},
-        Rectangle{75 + 1736, 128, 52, 747},
-        Rectangle{75 + 968, 56, 747, 52},
-        Rectangle{75 + 896, 128, 52, 747},
+        Rectangle{50 + 248, 0, 1672 - 50, 984},
+        Rectangle{50 + 256, 32, 30 + 624, 176},
+        Rectangle{50 + 256, 216, 30 + 624, 432},
+        Rectangle{50 + 256, 656, 30 + 624, 320},
+        Rectangle{100 + 1192, 352, 296, 296},
+        Rectangle{100 + 1184, 664, 312, 208},
+        Rectangle{100 + 1504, 344, 208, 312},
+        Rectangle{100 + 1184, 128, 312, 208},
+        Rectangle{100 + 968, 344, 208, 312},
+        Rectangle{100 + 968, 896, 747, 52},
+        Rectangle{100 + 1736, 128, 52, 747},
+        Rectangle{100 + 968, 56, 747, 52},
+        Rectangle{100 + 896, 128, 52, 747},
     };
     // Tiles Texture2D
     state.tilesTextures.resize(4);
@@ -137,7 +137,7 @@ inline void GuiLayoutPlayYama(const GuiLayoutPlayState* state, const std::string
         const int col = index_t % 12;
         const int span = row > hand_row_num ? static_cast<int>(col / 3) * 5 : static_cast<int>(col / 4) * 5;
 
-        const float x = 261 + col * 52 + span;
+        const float x = 261 + 50 + col * 52 + span;
         const float y = 240 + row * 65;
         const Vector2 cell = {x, y};
         DrawTextureEx(state->tilesTextures[3][0], cell, 0.0, 0.080, GRAY);

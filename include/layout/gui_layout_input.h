@@ -28,7 +28,7 @@ inline GuiLayoutInputState InitGuiLayoutInput()
 {
     return GuiLayoutInputState{
         false,
-        Rectangle{0, 0, 240, 40},
+        Rectangle{0, 0, 240+50, 40},
         false,
         Rectangle{static_cast<float>(GetScreenWidth()) - 168, 40, 168, static_cast<float>(GetScreenHeight()) - 40 - 24},
     };

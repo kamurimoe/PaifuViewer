@@ -40,10 +40,10 @@ inline GuiLayoutActionState InitGuiLayoutAction()
         0,
         0,
         0,
-        Rectangle{0, 48, 240, 24},
-        Rectangle{0, 72, 240, 300},
-        Rectangle{0, 355, 240, 24},
-        Rectangle{0, 379, 240, 605},
+        Rectangle{0, 48, 290, 24},
+        Rectangle{0, 72, 290, 300},
+        Rectangle{0, 355, 290, 24},
+        Rectangle{0, 379, 290, 605},
     };
 }
 
