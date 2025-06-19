@@ -4,9 +4,9 @@
 #include "MajongGame.h"
 
 // ui默认配置
-float BASE_WIDTH = 800;
-float BASE_HEIGHT = 600;
-int BASE_FONT_SIZE = 13;
+constexpr int BASE_WIDTH = 800;
+constexpr int BASE_HEIGHT = 600;
+constexpr int BASE_FONT_SIZE = 13;
 std::string BASE_TITLE = "牌谱复现";
 std::string fontPath = RES_DIR"/fonts/simhei.ttf";
 std::string charsetPath = RES_DIR"/fonts/charset.txt";
@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 {
     Viewer viewer(BASE_WIDTH, BASE_HEIGHT, BASE_TITLE, BASE_FONT_SIZE);
     // 中文字体
-    viewer.loadCustomFont(fontPath, charsetPath);
+    Viewer::loadCustomFont(fontPath, charsetPath);
     // layout
     Stater stater;
     // 文件导入
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 
         BeginDrawing();
         // 绘制ui
-        viewer.inDrawing();
+        Viewer::whileDrawing();
         stater.setInput();
         Round* activeRound = game.getRound(stater.action.ActiveRoundIndex);
         stater.setActionRoundsText(game.rounds_text, activeRound ? activeRound->acts_text : "");

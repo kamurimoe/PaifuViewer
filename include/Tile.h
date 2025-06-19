@@ -4,15 +4,14 @@
 #include <stdexcept>
 
 class Tile {
-private:
     int number;
     char type;
 
-    bool isValidType(char t) const {
+    static bool isValidType(const char t) {
         return t == 'm' || t == 'p' || t == 's' || t == 'z';
     }
 
-    bool isValidNumber(int n, char t) const {
+    static bool isValidNumber(const int n, const char t) {
         if (t == 'z') {
             return n >= 1 && n <= 7;
         }
@@ -21,7 +20,7 @@ private:
 
 public:
     // 基本构造函数
-    Tile(int n, char t) {
+    Tile(const int n, const char t) {
         if (!isValidType(t) || !isValidNumber(n, t)) {
             throw std::invalid_argument("Invalid tile");
         }
@@ -35,8 +34,8 @@ public:
             throw std::invalid_argument("Invalid tile string format");
         }
 
-        int n = str[0] - '0';
-        char t = str[1];
+        const int n = str[0] - '0';
+        const char t = str[1];
 
         if (!isValidType(t) || !isValidNumber(n, t)) {
             throw std::invalid_argument("Invalid tile");
@@ -46,10 +45,10 @@ public:
         type = t;
     }
 
-    int getNumber() const { return number; }
-    char getType() const { return type; }
+    [[nodiscard]] int getNumber() const { return number; }
+    [[nodiscard]] char getType() const { return type; }
 
-    std::string toString() const {
+    [[nodiscard]] std::string toString() const {
         return std::string(1, static_cast<char>(number + '0')) + type;
     }
 
@@ -66,7 +65,6 @@ public:
 };
 
 class Tiles {
-private:
     std::vector<Tile> tiles;
 
 public:
@@ -86,11 +84,11 @@ public:
         tiles.push_back(tile);
     }
 
-    const std::vector<Tile>& getTiles() const {
+    [[nodiscard]] const std::vector<Tile>& getTiles() const {
         return tiles;
     }
 
-    std::string toString() const {
+    [[nodiscard]] std::string toString() const {
         std::string result;
         for (const auto& tile : tiles) {
             result += tile.toString();
@@ -98,7 +96,7 @@ public:
         return result;
     }
 
-    size_t size() const {
+    [[nodiscard]] size_t size() const {
         return tiles.size();
     }
 
@@ -106,7 +104,7 @@ public:
         tiles.clear();
     }
 
-    const Tile& operator[](size_t index) const {
+    const Tile& operator[](const size_t index) const {
         return tiles[index];
     }
 

@@ -15,25 +15,25 @@
 
 // Custom style name: YuzuStyle
 static const GuiStyleProp yuzustyleStyleProps[YUZUSTYLE_STYLE_PROPS_COUNT] = {
-    { 0, 0, (int)0xdfdf5eff },    // DEFAULT_BORDER_COLOR_NORMAL
-    { 0, 1, (int)0x181b1eff },    // DEFAULT_BASE_COLOR_NORMAL 
-    { 0, 2, (int)0xc2c8d0ff },    // DEFAULT_TEXT_COLOR_NORMAL
-    { 0, 3, (int)0xd3dbdfff },    // DEFAULT_BORDER_COLOR_FOCUSED 
-    { 0, 4, (int)0xa7afb0ff },    // DEFAULT_BASE_COLOR_FOCUSED 
-    { 0, 5, (int)0x020202ff },    // DEFAULT_TEXT_COLOR_FOCUSED 
-    { 0, 6, (int)0xdfdf5eff },    // DEFAULT_BORDER_COLOR_PRESSED 
-    { 0, 7, (int)0x3c8c39ff },    // DEFAULT_BASE_COLOR_PRESSED 
-    { 0, 8, (int)0xdededeff },    // DEFAULT_TEXT_COLOR_PRESSED 
-    { 0, 9, (int)0x3e4550ff },    // DEFAULT_BORDER_COLOR_DISABLED 
-    { 0, 10, (int)0x2e353dff },    // DEFAULT_BASE_COLOR_DISABLED 
-    { 0, 11, (int)0x484f57ff },    // DEFAULT_TEXT_COLOR_DISABLED 
-    { 0, 16, (int)0x00000010 },    // DEFAULT_TEXT_SIZE 
-    { 0, 17, (int)0x00000000 },    // DEFAULT_TEXT_SPACING 
-    { 0, 18, (int)0xdfdf5eff },    // DEFAULT_LINE_COLOR 
-    { 0, 19, (int)0x2e353dff },    // DEFAULT_BACKGROUND_COLOR 
-    { 0, 20, (int)0x00000018 },    // DEFAULT_TEXT_LINE_SPACING 
-    { 1, 5, (int)0x97a9aeff },    // LABEL_TEXT_COLOR_FOCUSED 
-    { 4, 5, (int)0xa69a9aff },    // SLIDER_TEXT_COLOR_FOCUSED 
+    { 0, 0, static_cast<int>(0xdfdf5eff) },    // DEFAULT_BORDER_COLOR_NORMAL
+    { 0, 1, 0x181b1eff },    // DEFAULT_BASE_COLOR_NORMAL
+    { 0, 2, static_cast<int>(0xc2c8d0ff) },    // DEFAULT_TEXT_COLOR_NORMAL
+    { 0, 3, static_cast<int>(0xd3dbdfff) },    // DEFAULT_BORDER_COLOR_FOCUSED
+    { 0, 4, static_cast<int>(0xa7afb0ff) },    // DEFAULT_BASE_COLOR_FOCUSED
+    { 0, 5, 0x020202ff },    // DEFAULT_TEXT_COLOR_FOCUSED
+    { 0, 6, static_cast<int>(0xdfdf5eff) },    // DEFAULT_BORDER_COLOR_PRESSED
+    { 0, 7, 0x3c8c39ff },    // DEFAULT_BASE_COLOR_PRESSED
+    { 0, 8, static_cast<int>(0xdededeff) },    // DEFAULT_TEXT_COLOR_PRESSED
+    { 0, 9, 0x3e4550ff },    // DEFAULT_BORDER_COLOR_DISABLED
+    { 0, 10, 0x2e353dff },    // DEFAULT_BASE_COLOR_DISABLED
+    { 0, 11, 0x484f57ff },    // DEFAULT_TEXT_COLOR_DISABLED
+    { 0, 16, 0x00000010 },    // DEFAULT_TEXT_SIZE
+    { 0, 17, 0x00000000 },    // DEFAULT_TEXT_SPACING
+    { 0, 18, static_cast<int>(0xdfdf5eff) },    // DEFAULT_LINE_COLOR
+    { 0, 19, 0x2e353dff },    // DEFAULT_BACKGROUND_COLOR
+    { 0, 20, 0x00000018 },    // DEFAULT_TEXT_LINE_SPACING
+    { 1, 5, static_cast<int>(0x97a9aeff) },    // LABEL_TEXT_COLOR_FOCUSED
+    { 4, 5, static_cast<int>(0xa69a9aff) },    // SLIDER_TEXT_COLOR_FOCUSED
     { 9, 5, (int)0xa9a5a5ff },    // TEXTBOX_TEXT_COLOR_FOCUSED 
     { 10, 5, (int)0xc9c7c7ff },    // VALUEBOX_TEXT_COLOR_FOCUSED 
 };
@@ -540,13 +540,13 @@ static const GuiStyleProp yuzustyleStyleProps[YUZUSTYLE_STYLE_PROPS_COUNT] = {
 //};
 
 // Style loading function: YuzuStyle
-static void GuiLoadStyleYuzuStyle(void)
+static void GuiLoadStyleYuzuStyle()
 {
     // Load style properties provided
     // NOTE: Default properties are propagated
-    for (int i = 0; i < YUZUSTYLE_STYLE_PROPS_COUNT; i++)
+    for (auto yuzustyleStyleProp : yuzustyleStyleProps)
     {
-        GuiSetStyle(yuzustyleStyleProps[i].controlId, yuzustyleStyleProps[i].propertyId, yuzustyleStyleProps[i].propertyValue);
+        GuiSetStyle(yuzustyleStyleProp.controlId, yuzustyleStyleProp.propertyId, yuzustyleStyleProp.propertyValue);
     }
 
     //// Custom font loading

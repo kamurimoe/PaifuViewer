@@ -61,7 +61,7 @@ inline void GuiLayoutAction(GuiLayoutActionState* state, const char* rounds_text
                      state->RoundsTitleBounds.height - state->RoundsBoxBoundsOffset.y
                  }, RoundsBoxText);
     // 禁用取消选择
-    int prevActiveRoundIndex = state->ActiveRoundIndex;
+    const int prevActiveRoundIndex = state->ActiveRoundIndex;
     GuiListView(Rectangle{
                     state->RoundsBoxBounds.x, state->RoundsBoxBounds.y,
                     state->RoundsBoxBounds.width - state->RoundsBoxBoundsOffset.x,
@@ -75,7 +75,7 @@ inline void GuiLayoutAction(GuiLayoutActionState* state, const char* rounds_text
                      state->ActsTitleBounds.height - state->ActsBoxBoundsOffset.y
                  }, ActsBoxText);
     // 禁用取消选择
-    int prevActiveActionIndex = state->ActiveActIndex;
+    const int prevActiveActionIndex = state->ActiveActIndex;
     GuiListView(Rectangle{ state->ActsBoxBounds.x, state->ActsBoxBounds.y, state->ActsBoxBounds.width - state->ActsBoxBoundsOffset.x, state->ActsBoxBounds.height - state->ActsBoxBoundsOffset.y }, acts_text, &state->ActiveAct, &state->ActiveActIndex);
     if (state->ActiveActIndex==-1) state->ActiveActIndex = prevActiveActionIndex;
 }

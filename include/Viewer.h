@@ -6,19 +6,19 @@
 class Viewer
 {
 public:
-    Viewer(float width, float height, const std::string& title, int fontSize);
+    Viewer(int width, int height, const std::string& title, int fontSize);
     ~Viewer();
 
     void flashScale();
 
-    static void inDrawing();
+    static void whileDrawing();
 
     static void loadCustomFont(const std::string& fontPath, const std::string& charsetPath);
 
 private:
     float scaleX = 1.0;
     float scaleY = 1.0;
-    float baseWidth;
-    float baseHeight;
-    float baseFontSize;
+    int baseWidth;
+    int baseHeight;
+    int baseFontSize;
 };

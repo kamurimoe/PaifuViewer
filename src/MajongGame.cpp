@@ -36,12 +36,12 @@ void MajongGame::end()
 Round* MajongGame::getRound(const int i)
 {
     if (i >= Rounds.size())return nullptr;
+    if (i == -1)return &Rounds.back();
     return &Rounds[i];
 }
 
 void MajongGame::parseAction(const njson& a)
 {
-    //std::string time = a["passed"]+"ms";
     const std::string actionName = a["result"]["name"].get<std::string>();
     njson actionData = a["result"]["data"];
     if (actionName == ".lq.RecordNewRound")
@@ -55,20 +55,17 @@ void MajongGame::parseAction(const njson& a)
     }
     else
     {
-        Round* activeRound = getRound(Rounds.size() - 1);
+        Round* activeRound = getRound(-1);
+        const int seat = actionData["seat"].get<int>();
+        const std::string name = seats[seat];
         if (actionName == ".lq.RecordDealTile")
         {
-            activeRound->addActs(
-                std::format("{}:摸{}",
-                            seats[actionData["seat"].get<int>()],
-                            actionData["tile"].get<std::string>()));
+            activeRound->addActs(std::format("{}:摸{}", name, actionData["tile"].get<std::string>()));
         }
         else if (actionName == ".lq.RecordDiscardTile")
         {
             activeRound->addActs(
-                std::format("{}:切{}{}",
-                            seats[actionData["seat"].get<int>()],
-                            actionData["tile"].get<std::string>(),
+                std::format("{}:切{}{}", name, actionData["tile"].get<std::string>(),
                             actionData["is_wliqi"].get<bool>()
                                 ? "双立直"
                                 : actionData["is_liqi"].get<bool>()
@@ -83,9 +80,7 @@ void MajongGame::parseAction(const njson& a)
                 type == 0 ? tiles[0] + tiles[1] + "吃" + tiles[2] : type == 1 ? "碰" + tiles[0] : "杠" + tiles[0];
 
             activeRound->addActs(
-                std::format("{}:{}({})",
-                            seats[actionData["seat"].get<int>()],
-                            act,
+                std::format("{}:{}({})", name, act,
                             seats[actionData["froms"][actionData["froms"].size() - 1].get<int>()]));
         }
         else if (actionName == ".lq.RecordAnGangAddGang")
@@ -96,31 +91,30 @@ void MajongGame::parseAction(const njson& a)
                 type == 2 ? "加杠" + tile : "暗杠" + tile;
 
             activeRound->addActs(
-                std::format("{}:{}", seats[actionData["seat"].get<int>()], act));
+                std::format("{}:{}", name, act));
         }
         else if (actionName == ".lq.RecordBaBei")
         {
             activeRound->addActs(
-                std::format("{}:拔北", seats[actionData["seat"].get<int>()]));
+                std::format("{}:拔北", name));
         }
         else if (actionName == ".lq.RecordHule")
         {
             njson hules = actionData["hules"];
-            const int num = hules.size();
+            const auto num = hules.size();
             for (int i = 0; i < num; i++)
             {
                 std::string type =
                     hules[i]["zimo"].get<bool>() ? "自摸" : "荣胡" + seats[findHouju(actionData["delta_scores"])];
                 std::string comma = num > 1 && i != num ? ";" : "";
-                const int seat = hules[i]["seat"].get<int>();
+                const int hule_seat = hules[i]["seat"].get<int>();
                 activeRound->addActs(
-                    std::format("{}:{}{}", seats[seat], type, comma));
+                    std::format("{}:{}{}", seats[hule_seat], type, comma));
             }
         }
         else if (actionName == ".lq.RecordNoTile")
         {
-            bool liuman = actionData["liujumanguan"].get<bool>();
-            if (liuman)
+            if (actionData["liujumanguan"].get<bool>())
             {
                 njson scores = actionData["scores"];
                 std::string liumans;
@@ -139,14 +133,10 @@ void MajongGame::parseAction(const njson& a)
         }
         else if (actionName == ".lq.RecordLiuJu")
         {
-            int type = actionData["type"].get<int>();
-            activeRound->addActs(type == 1
-                                     ? std::format("{}:九种九牌", seats[actionData["seat"].get<int>()])
-                                     : type == 2
-                                     ? "四风连打"
-                                     : type == 3
-                                     ? "四杠散了"
-                                     : "四家立直");
+            const int type = actionData["type"].get<int>();
+            activeRound->addActs(
+                type == 1 ? std::format("{}:九种九牌", name) : type == 2 ? "四风连打" : type == 3 ? "四杠散了" : "四家立直"
+            );
         }
         else std::cout << "未测试到该行为: " << actionName << std::endl;
     }
@@ -161,8 +151,7 @@ void MajongGame::parsePaifu()
         const int seat = account.contains("seat") ? account["seat"].get<int>() : 0;
         seats[seat] = account["nickname"].get<std::string>();
     }
-    njson data = paifu["data"]["data"];
-    if (data["version"] == 210715)
+    if (njson data = paifu["data"]["data"]; data["version"] == 210715)
     {
         njson actions = data["actions"];
         actions_ptr = actions;

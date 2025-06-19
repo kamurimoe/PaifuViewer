@@ -65,7 +65,7 @@ inline GuiLayoutPlayState InitGuiLayoutPlay()
     };
     // Tiles Texture2D
     state.tilesTextures.resize(4);
-    std::string dir = RES_DIR "/tiles/";
+    const std::string dir = RES_DIR "/tiles/";
     for (int i = 0; i < 4; i++)
     {
         state.tilesTextures[i].resize(10);
@@ -132,14 +132,14 @@ inline void GuiLayoutPlayYama(const GuiLayoutPlayState* state, const std::string
         int order[2] = {0, 0};
         Tile2Order(tile, order);
         const int index = i / 2;
-        const int index_t = (index + (index > init_hand_num - 1 ? 12 - offset_by_hand : 0));
-        const int row = index_t / 12;
-        const int col = index_t % 12;
-        const int span = row > hand_row_num ? static_cast<int>(col / 3) * 5 : static_cast<int>(col / 4) * 5;
+        // const int index_t = index + (index > init_hand_num - 1 ? 12 - offset_by_hand : 0);
+        const int row = (index + (index > init_hand_num - 1 ? 13 - offset_by_hand : 0)) / 12;
+        const int col = (index + (index > init_hand_num - 1 ? 13 - offset_by_hand : 0)) % 12;
+        const int span = row > hand_row_num ? col / 3 * 8 : col / 4 * 10;
 
-        const float x = 261 + 50 + col * 52 + span;
-        const float y = 240 + row * 65;
-        const Vector2 cell = {x, y};
+        const auto x = 311 + col * 51 + span;
+        const auto y = 240 + row * 65;
+        const Vector2 cell = {static_cast<float>(x), static_cast<float>(y)};
         DrawTextureEx(state->tilesTextures[3][0], cell, 0.0, 0.080, GRAY);
         DrawTextureEx(state->tilesTextures[order[0]][order[1]], cell, 0.0, 0.080, WHITE);
     }

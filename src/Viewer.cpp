@@ -4,7 +4,8 @@
 #include "style/YuzuStyle.h"
 #include <fstream>
 
-Rectangle ScaledTransRect(Rectangle oRect, float scaleX, float scaleY) {
+Rectangle ScaledTransRect(const Rectangle oRect, const float scaleX, const float scaleY)
+{
     // 计算缩放及变换坐标
     return {
         (oRect.x - oRect.width / 2) * scaleX,
@@ -14,7 +15,8 @@ Rectangle ScaledTransRect(Rectangle oRect, float scaleX, float scaleY) {
     };
 }
 
-Viewer::Viewer(float width, float height, const std::string &title, int fontSize) {
+Viewer::Viewer(const int width, const int height, const std::string& title, const int fontSize)
+{
     // 初始化窗口
     baseWidth = width;
     baseHeight = height;
@@ -26,28 +28,32 @@ Viewer::Viewer(float width, float height, const std::string &title, int fontSize
     GuiLoadStyleYuzuStyle();
 }
 
-Viewer::~Viewer() {
+Viewer::~Viewer()
+{
     UnloadFont(GuiGetFont());
 }
 
-void Viewer::inDrawing() {
+void Viewer::whileDrawing()
+{
     ClearBackground(GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR)));
 }
 
-void Viewer::loadCustomFont(const std::string &fontPath, const std::string &charsetPath) {
+void Viewer::loadCustomFont(const std::string& fontPath, const std::string& charsetPath)
+{
     int codepointsCount;
     std::ifstream file(charsetPath, std::ios::binary);
-    std::string text = std::string((std::istreambuf_iterator<char>(file)),
+    const auto text = std::string(std::istreambuf_iterator(file),
                                    std::istreambuf_iterator<char>());
     //char* text = LoadFileText(charsetPath.data());
-    int *codepoints = LoadCodepoints(text.data(), &codepointsCount);
-    Font font = LoadFontEx(fontPath.data(), 64, codepoints, codepointsCount);
+    int* codepoints = LoadCodepoints(text.data(), &codepointsCount);
+    const Font font = LoadFontEx(fontPath.data(), 64, codepoints, codepointsCount);
     UnloadCodepoints(codepoints);
     GuiSetFont(font);
 }
 
-void Viewer::flashScale() {
-    scaleX = static_cast<float>(GetScreenWidth()) / baseWidth;
-    scaleY = static_cast<float>(GetScreenHeight()) / baseHeight;
-    GuiSetStyle(DEFAULT, TEXT_SIZE, baseFontSize * std::min(scaleX, scaleY));
+void Viewer::flashScale()
+{
+    scaleX = static_cast<float>(GetScreenWidth()) / static_cast<float>(baseWidth);
+    scaleY = static_cast<float>(GetScreenHeight()) / static_cast<float>(baseHeight);
+    GuiSetStyle(DEFAULT, TEXT_SIZE, baseFontSize * static_cast<int>(std::min(scaleX, scaleY)));
 }

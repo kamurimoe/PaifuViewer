@@ -3,7 +3,7 @@
 
 
 std::string Reader::readFile() {
-    char fileName[256] = {0};
+    char fileName[256] = {};
     // 拖入或选择文件
     //#if defined(CUSTOM_MODAL_DIALOGS)
     //        int result = GuiFileDialog(DIALOG_MESSAGE, "#5#Load raygui paifu file", inFileName, "Ok", "Just drag and drop your .rgl paifu file!");

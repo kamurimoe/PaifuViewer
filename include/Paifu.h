@@ -2,6 +2,5 @@
 using njson = nlohmann::json;
 
 class Paifu :public njson {
-public:
 
 };
