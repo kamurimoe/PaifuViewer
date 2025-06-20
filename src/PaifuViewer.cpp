@@ -34,6 +34,12 @@ int main(int argc, char* argv[])
             // 动态标题
             SetWindowTitle(TextFormat("%s | %s", BASE_TITLE.data(), GetFileName(fileName.data())));
             game.resetPaifu(fileName);
+            std::vector<std::string> yamas;
+            for (const auto& round : game.Rounds) {
+                yamas.push_back(round.yama);
+            }
+            stater.initPlayYama(yamas);
+
         }
 
         BeginDrawing();
@@ -41,9 +47,10 @@ int main(int argc, char* argv[])
         Viewer::whileDrawing();
         stater.setInput();
         Round* activeRound = game.getRound(stater.action.ActiveRoundIndex);
+        stater.syncActiveRound();
         stater.setActionRoundsText(game.rounds_text, activeRound ? activeRound->acts_text : "");
         stater.setPlay();
-        stater.setPlayYama(activeRound ? activeRound->yama : "");
+        stater.setPlayYama();
         EndDrawing();
     }
 

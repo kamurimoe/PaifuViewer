@@ -88,7 +88,7 @@ extern "C" {            // Prevents name mangling of functions
 #include "raylib.h"     // Required for: TextSplit()
 
 #if defined(PLATFORM_DESKTOP) && !defined(CUSTOM_MODAL_DIALOGS)
-#include "external/tinyfiledialogs.h"   // Required for: Native open/save file dialogs
+#include "tinyfiledialogs.h"   // Required for: Native open/save file dialogs
 #else
 #include "raygui.h"
 #endif

@@ -35,8 +35,8 @@ void MajongGame::end()
 
 Round* MajongGame::getRound(const int i)
 {
-    if (i >= Rounds.size())return nullptr;
-    if (i == -1)return &Rounds.back();
+    if (Rounds.empty())return nullptr;
+    if (i == -1)return &Rounds[Rounds.size() - 1];
     return &Rounds[i];
 }
 
@@ -56,7 +56,7 @@ void MajongGame::parseAction(const njson& a)
     else
     {
         Round* activeRound = getRound(-1);
-        const int seat = actionData["seat"].get<int>();
+        const int seat = actionData.contains("seat") ? actionData["seat"].get<int>() : -1;
         const std::string name = seats[seat];
         if (actionName == ".lq.RecordDealTile")
         {
@@ -178,7 +178,7 @@ void MajongGame::resetPaifu(const std::string& fileName)
     rounds_text.clear();
     Rounds.clear();
     seats.clear();
-
+    if (fileName.empty())return;
     std::ifstream f(fileName);
     paifu = njson::parse(f);
     parsePaifu();

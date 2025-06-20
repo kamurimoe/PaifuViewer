@@ -7,5 +7,5 @@ Round::Round(const std::string& Yama)
 
 void Round::addActs(const std::string& act)
 {
-    acts_text += ";" + act;
+    acts_text += (";"+ act);
 }

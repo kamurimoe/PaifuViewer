@@ -17,5 +17,7 @@ public:
     void setInput();
     void setActionRoundsText(const std::string& rounds_text, const std::string& acts_text);
     void setPlay();
-    void setPlayYama(const std::string& yama) const;
+    void initPlayYama(const std::vector<std::string>& yamas);
+    void setPlayYama() const;
+    void syncActiveRound();
 };

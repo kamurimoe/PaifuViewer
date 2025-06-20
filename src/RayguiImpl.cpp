@@ -3,6 +3,5 @@
 #define RAYGUI_TEXTSPLIT_MAX_TEXT_SIZE 3096
 #include "raygui.h"
 
-#define PLATFORM_DESKTOP
 #define GUI_FILE_DIALOGS_IMPLEMENTATION
 #include "layout/gui_file_dialogs.h"

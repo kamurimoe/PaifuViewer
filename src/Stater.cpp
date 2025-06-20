@@ -16,7 +16,17 @@ void Stater::setPlay()
     GuiLayoutPlay(&play);
 }
 
-void Stater::setPlayYama(const std::string& yama) const
+void Stater::initPlayYama(const std::vector<std::string>& yamas)
 {
-    GuiLayoutPlayYama(&play, yama);
+    InitGuiLayoutPlayYama(&play, yamas);
+}
+
+void Stater::setPlayYama() const
+{
+    GuiLayoutPlayYama(&play);
+}
+
+void Stater::syncActiveRound()
+{
+    play.ActiveRound = action.ActiveRoundIndex;
 }
